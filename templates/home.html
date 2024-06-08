@@ -37,6 +37,38 @@ body, html {
         .img-hover-zoom img:hover {
             transform: scale(1.1);
         }
+        .carousel-inner img{
+        width: 100%;
+        height: 400px;
+        
+    }
+    .carousel-inner .carousel-item img {
+    transition: transform 0.5s ease;
+}
+
+.carousel-inner .carousel-item:hover img {
+    transform: scale(1.1);
+}
+.side-navbar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            background-color: #343a40;
+            transition: left 0.3s;
+            padding-top: 60px;
+        }
+        .side-navbar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #ffffff;
+            display: block;
+        }
+        .side-navbar a:hover {
+            background-color: #575d63;
+        }
     </style>
 </head>
 <body>
@@ -48,7 +80,6 @@ body, html {
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                   
                     <li class="nav-item active">
                         <a class="nav-link" href="">Pricing</a>
                     </li>
@@ -59,20 +90,27 @@ body, html {
                         <a class="nav-link" href="#">Contact</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dashboard
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="">Members</a>
-                            <a class="dropdown-item" href="">#</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sign in</a>
+                        <a class="nav-link" href="{% url 'dashboard' %}" id="dashboardLink">Dashboard</a>
                     </li>
                 </ul>
             </div>
         </nav>
+        
+    
+        <div id="demo" class="carousel slide" data-ride="carousel">
+            
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'images/img2.jpeg' %}" alt="Library Image">
+                    <div class="carousel-caption">
+                        <h1 class="text-light">Make your bussiness to grow</h1>
+                        <button class="btn btn-primary">Start Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    
         <div class="content container mt-5">
             <div class="row">
                 <div class="col-md-6">
@@ -88,15 +126,12 @@ body, html {
                     <h3 class="text-center text-primary mt-5">Managing your sales process was never been this easy</h3>
                 </div>
                 <div class="container">
-                    <h5 class="text-center">The priciples,practices and guidelines an organisation follows when interacting with its customers</h5>
-
+                    <h5 class="text-center">The principles, practices, and guidelines an organization follows when interacting with its customers</h5>
                 </div>
                 
-                <button class="btn btn-primary">Start Now</button>
-           
             </div>
         </div>
-        
+    
         <footer class="bg-dark text-light pt-5 pb-4 mt-5">
             <div class="container-fluid">
                 <div class="row">
@@ -109,18 +144,20 @@ body, html {
                     </div>
                     <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                         <h5 class="text-primary">Customer policies</h5>
-                        <p>contact us</p>
+                        <p>Contact us</p>
                         <p>FAQ</p>
-                        <p>shipping</p>
+                        <p>Shipping</p>
                         <p>Returns</p>
                     </div>
                     <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                         <h5 class="text-primary">Useful links</h5>
                         <p><a class="text-light" href="#" style="text-decoration: none;">Blogs</a></p>
-                        <p><a class="text-light" href="#" style="text-decoration: none;">careers</a></p>
-                        <p><a class="text-light" href="#" style="text-decoration: none;">corporate information</a></p>
+                        <p><a class="text-light" href="#" style="text-decoration: none;">Careers</a></p>
+                        <p><a class="text-light" href="#" style="text-decoration: none;">Corporate information</a></p>
                     </div>
                 </div>
             </div>
         </footer>
     </div>
+    
+    
