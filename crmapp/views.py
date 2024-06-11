@@ -11,3 +11,6 @@ def home(request):
 
 def dashboard(request):
    return render(request, 'dashboard.html')
+
+def archieve(request):
+   return render(request, 'archieve.html')
