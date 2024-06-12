@@ -7,299 +7,284 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRM</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-   
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
+
     <style>
-        h3 {
-            font-style: italic;
+        body {
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
         }
 
-        body, html {
-            height: 100%;
-            margin: 0;
-            background-color: aliceblue;
-        }
-        .wrapper {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .content {
-            flex: 1;
-        }
-        .img-hover-zoom img {
-            transition: transform 0.5s ease;
-        }
-        .img-hover-zoom img:hover {
-            transform: scale(1.1);
-        }
-        .carousel-inner img {
-            width: 100%;
-            height: 400px;
-        }
-        .carousel-inner .carousel-item img {
-            transition: transform 0.5s ease;
-        }
-        .carousel-inner .carousel-item:hover img {
-            transform: scale(1.1);
-        }
-        .side-navbar {
-            height: 100vh;
-            width: 250px;
+        .navbar {
             position: fixed;
             top: 0;
-            left: -250px;
-            background-color: #343a40;
-            transition: left 0.3s;
-            padding-top: 60px;
+            width: 100%;
+            z-index: 1;
         }
+
+        .wrapper {
+            display: flex;
+            width: 100%;
+        }
+
+        .side-navbar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 56px; /* Adjust according to the height of the navbar */
+            left: 0;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+            padding-top: 20px;
+            z-index: 2;
+            transition: 0.5s;
+        }
+
         .side-navbar a {
             padding: 10px 15px;
             text-decoration: none;
             font-size: 18px;
-            color: #ffffff;
+            color: #333;
             display: block;
+            transition: 0.3s;
         }
+
         .side-navbar a:hover {
-            background-color: #575d63;
+            color: #007bff;
         }
-        .closebtn {
+
+        .content {
+            margin-left: 250px;
+            padding: 16px;
+            transition: margin-left 0.5s;
+            margin-top: 56px; /* Adjust according to the height of the navbar */
+            width: calc(100% - 250px);
+        }
+
+        @media (max-width: 768px) {
+            .side-navbar {
+                left: -250px;
+            }
+
+            .content {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+
+        .openbtn {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .openbtn {
+                display: block;
+                position: fixed;
+                top: 10px;
+                left: 10px;
+                font-size: 20px;
+                cursor: pointer;
+                color: #333;
+                z-index: 3;
+            }
+        }
+
+        .carousel-caption {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
             position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-        .kanban-board {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 20px;
-        padding: 20px;
-    }
-    .kanban-stage {
-        flex: 1;
-        margin: 0 10px;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: #e9ecef;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .kanban-stage h4 {
-        text-align: center;
-        padding: 10px 0;
-        color: #343a40;
-    }
-    .kanban-cards {
-        min-height: 400px;
-        padding: 10px;
-        background-color: #f8f9fa;
-        border: 1px solid #ced4da;
-        border-radius: 8px;
-        overflow-y: auto;
-    }
-    .kanban-card {
-        margin: 10px 0;
-        padding: 15px;
-        background: #ffffff;
-        border-radius: 8px;
-        border: 1px solid #ced4da;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s;
-    }
-    .kanban-card:hover {
-        transform: scale(1.02);
-    }
-    .kanban-card h4 {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
-        color: #495057;
-    }
-    .kanban-card p {
-        font-size: 0.9rem;
-        color: #6c757d;
-    }
-    .kanban-card button {
-        margin-right: 5px;
-    }
-    .kanban-card .btn {
-        font-size: 0.8rem;
-        padding: 5px 10px;
-    }
-    .rating {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-    .rating .fa-star {
-        color: #ffc107; 
-        margin-top: 5px;
-        margin-right: 10px;
-        cursor: pointer;
-    }
-    .rating .fa-star:hover,
-    .rating .fa-star:hover ~ .fa-star {
-        color: #e4e5e9;
-    }
-    .popup-container {
-        position: fixed;
-        top: 20%;
-        right: 20%;
-        width: 300px;
-        background-color: #ffffff;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        border-radius: 8px;
-        z-index: 1050;
-        padding: 20px;
-    }
-    .popup-title {
-        text-align: center;
-        margin-bottom: 15px;
-    }
-    .popup-container {
-            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 300px;
-            background: white;
-            border: 1px solid #ccc;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-caption h1 {
+                font-size: 24px;
+            }
+
+            .carousel-caption .btn {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
+        .kanban-board {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .kanban-stage {
+            flex: 1;
+            margin: 0 10px;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .kanban-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .kanban-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: calc(25% - 10px);
+            height: 200px;
+            box-sizing: border-box;
+            position: relative;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .rating .fa-star {
+            color: #ffc107;
+            margin-top: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .rating .fa-star:hover,
+        .rating .fa-star:hover ~ .fa-star {
+            color: #e4e5e9;
+        }
+        .trash-popup {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
             padding: 20px;
+            border-radius: 5px;
             z-index: 1000;
         }
-    
-        .popup-content {
-            max-height: 300px;
-            overflow-y: auto;
+        .trash-icon {
+            color: #721c24;
+            font-size: 24px;
         }
-    
-        .archive-sidebar {
-            position: fixed;
-            right: 0;
-            top: 0;
-            width: 300px;
-            height: 100%;
-            background: #f7f7f7;
-            border-left: 1px solid #ccc;
-            padding: 20px;
-            box-shadow: -4px 0 8px rgba(0, 0, 0, 0.2);
-            overflow-y: auto;
-            z-index: 999;
-        }
-        
     </style>
 </head>
 <body>
     <div class="wrapper">
+        <!-- Top Navbar -->
         <nav class="navbar navbar-expand-sm bg-light navbar-light">
-            <a class="navbar-brand ml-5" href="" style="font-family: italic;">CRM</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="">CRM</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="javascript:void(0)" id="dashboardLink">Dashboard</a>
-                    </li>
-                </ul>
-            </div>
+            <a class="navbar-brand ml-5" href="#" style="font-family: italic;">CRM</a>
         </nav>
-        <div class="content">
-            {% block content %} 
-        <div id="demo" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="{% static 'images/img2.jpeg' %}" alt="Library Image">
-                    <div class="carousel-caption">
-                        <h1 class="text-light">Make your business grow</h1>
-                        <button class="btn btn-primary">Start Now</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="content container mt-5">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>All CRM needs solutions, simple and modern</h3>
-                    <p>Customer relationship management is a process in which a business or other organization administers its interactions with customers, typically using data analysis to study large amounts of information.</p>
-                </div>
-                <div class="col-md-6">
-                    <div class="img-hover-zoom">
-                        <img src="{% static 'images/img1.jpeg' %}" alt="CRM Image" class="img-fluid rounded">
-                    </div>
-                </div>
-                <div class="col-12">
-                    <h3 class="text-center text-primary mt-5">Managing your sales process was never this easy</h3>
-                </div>
-                <div class="container">
-                    <h5 class="text-center">The principles, practices, and guidelines an organization follows when interacting with its customers</h5>
-                </div>
-            </div>
-        </div>
-        {% endblock %}
-    
-        <footer class="bg-dark text-light pt-5 pb-4 mt-5">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                        <h5 class="text-primary">Contact</h5>
-                        <p>xyz street</p>
-                        <p>Thrissur, Kerala</p>
-                        <p>Ph: 912563879</p>
-                        <p>Email: xyz@gmail.com</p>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                        <h5 class="text-primary">Customer policies</h5>
-                        <p>Contact us</p>
-                        <p>FAQ</p>
-                        <p>Shipping</p>
-                        <p>Returns</p>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                        <h5 class="text-primary">Useful links</h5>
-                        <p><a class="text-light" href="#" style="text-decoration: none;">Blogs</a></p>
-                        <p><a class="text-light" href="#" style="text-decoration: none;">Careers</a></p>
-                        <p><a class="text-light" href="#" style="text-decoration: none;">Corporate information</a></p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        
+
         <!-- Sidebar -->
         <div id="mySidebar" class="side-navbar">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="{% url 'dashboard' %}">Cards </a>
-            <a href="#">Archieved</a>
-           
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+            <a class="nav-link" href="#">CRM</a>
+            <a class="nav-link" href="#">Archieved</a>
+            <a class="nav-link" href="{% url 'dashboard' %}" id="dashboardLink">Dashboard</a>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <span class="openbtn" onclick="openNav()">&#9776;</span>
+            {% block content %}
+            <div id="demo" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'images/img2.jpeg' %}" alt="Library Image" class="d-block w-100">
+                        <!-- <div class="carousel-caption">
+                            <h1 class="text-primary">Make your business grow</h1>
+                            
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>All CRM needs solutions, simple and modern</h3>
+                        <p>Customer relationship management is a process in which a business or other organization administers its interactions with customers, typically using data analysis to study large amounts of information.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="img-hover-zoom">
+                            <img src="{% static 'images/img1.jpeg' %}" alt="CRM Image" class="img-fluid rounded">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <h3 class="text-center text-primary mt-5">Managing your sales process was never this easy</h3>
+                    </div>
+                    <div class="container">
+                        <h5 class="text-center">The principles, practices, and guidelines an organization follows when interacting with its customers</h5>
+                    </div>
+                </div>
+            </div>
+            
+            {% endblock %}
+
+            <footer class="bg-dark text-light pt-5 pb-4 mt-5">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                            <h5 class="text-primary">Contact</h5>
+                            <p>xyz street</p>
+                            <p>Thrissur, Kerala</p>
+                            <p>Ph: 912563879</p>
+                            <p>Email: xyz@gmail.com</p>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                            <h5 class="text-primary">Customer policies</h5>
+                            <p>Contact us</p>
+                            <p>FAQ</p>
+                            <p>Shipping</p>
+                            <p>Returns</p>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                            <h5 class="text-primary">Useful links</h5>
+                            <p><a class="text-light" href="#" style="text-decoration: none;">Blogs</a></p>
+                            <p><a class="text-light" href="#" style="text-decoration: none;">Careers</a></p>
+                            <p><a class="text-light" href="#" style="text-decoration: none;">Corporate information</a></p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 
+
     <script>
-        document.getElementById("dashboardLink").onclick = function() {
+        function openNav() {
             document.getElementById("mySidebar").style.left = "0";
         }
 
         function closeNav() {
             document.getElementById("mySidebar").style.left = "-250px";
+        }
+
+        // Automatically hide the sidebar when window is resized to smaller screens
+        window.addEventListener('resize', function() {
+            if (window.innerWidth <= 768) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        });
+
+        // Initial check to ensure correct sidebar state on page load
+        if (window.innerWidth > 768) {
+            openNav();
+        } else {
+            closeNav();
         }
     </script>
 
@@ -309,4 +294,3 @@
 </body>
 </html>
 
-    
