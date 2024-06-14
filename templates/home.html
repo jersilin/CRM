@@ -12,11 +12,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .navbar {
@@ -28,6 +34,15 @@
 
         .wrapper {
             display: flex;
+            width: 100%;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
             width: 100%;
         }
 
@@ -158,10 +173,7 @@
             margin-right: 10px;
             cursor: pointer;
         }
-        .rating .fa-star:hover,
-        .rating .fa-star:hover ~ .fa-star {
-            color: #e4e5e9;
-        }
+       
         .trash-popup {
             display: none;
             position: fixed;
@@ -177,6 +189,8 @@
             color: #721c24;
             font-size: 24px;
         }
+        
+        
     </style>
 </head>
 <body>
@@ -190,7 +204,7 @@
         <div id="mySidebar" class="side-navbar">
             <a class="nav-link" href="{% url 'home' %}">Home</a>
             <a class="nav-link" href="#">CRM</a>
-            <a class="nav-link" href="#">Archieved</a>
+            <a class="nav-link" href="{% url 'archieve' %}">Archived</a>
             <a class="nav-link" href="{% url 'dashboard' %}" id="dashboardLink">Dashboard</a>
         </div>
 
@@ -229,6 +243,9 @@
                     </div>
                 </div>
             </div>
+            <div class="container mt-3">
+        <img src="{% static 'images/graph.png' %}" alt="Graph" class="img-fluid">
+    </div>
             
             {% endblock %}
 

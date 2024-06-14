@@ -1,94 +1,62 @@
-{% extends "home.html" %}
+{% extends "dashboard.html" %}
 
 {% load static %}
 {% block content %}
-<script>
-     
-   
-function saveCardState(cardId, stageId) {
-    const cardState = { cardId: cardId, stageId: stageId };
-    localStorage.setItem('swipedCard', JSON.stringify(cardState));
-}
 
-// Retrieve card state from local storage
-function retrieveCardState() {
-    const cardState = localStorage.getItem('swipedCard');
-    return JSON.parse(cardState);
-}
 
-document.querySelectorAll('.kanban-cards').forEach(stage => {
-    new Sortable(stage, {
-        group: 'kanban',
-        animation: 150,
-        onEnd: function (evt) {
-            var cardId = evt.item.getAttribute('data-card-id');
-            var newStageId = evt.to.closest('.kanban-stage') ? evt.to.closest('.kanban-stage').getAttribute('data-stage-id') : 'popup';
-            console.log('Card ID:', cardId, 'New Stage ID:', newStageId);
-
-            // Update modal content
-            document.getElementById('cardId').textContent = cardId;
-
-            if (newStageId === 'popup') {
-                // Show modal
-                var moveCardModal = new bootstrap.Modal(document.getElementById('moveCardModal'));
-                moveCardModal.show();
-
-                // Move card to popup container
-                document.getElementById('popupCards').appendChild(evt.item);
-
-                // Save card state to local storage
-                saveCardState(cardId, newStageId);
-
-                // Show popup
-                document.getElementById('popupContainer').style.display = 'block';
-
-                // Hide the modal after 3 seconds
-                setTimeout(() => {
-                    moveCardModal.hide();
-                }, 3000);
+    <body>
+        <div class="container">
+            <h2 class="text-center mt-4">Archived Cards</h2>
+            <div id="archive-board" class="kanban-board mt-4">
+                <!-- Archived cards will be rendered here -->
+            </div>
+        </div>
+    </body>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const archiveBoard = document.getElementById('archive-board');
+    
+            // Get archived cards from local storage
+            const archivedCards = JSON.parse(localStorage.getItem('archivedCards')) || [];
+    
+            // Render archived cards
+            archivedCards.forEach(cardData => {
+                const card = document.createElement('div');
+                card.classList.add('kanban-card');
+                card.setAttribute('data-card-id', cardData.id);
+                card.innerHTML = `
+                    <h5>${cardData.title}</h5>
+                    <p>${cardData.description}</p>
+                    <p>${cardData.revenue}</p>
+                    <button class="btn btn-secondary unarchive-btn"><i class="fas fa-undo"></i> Unarchive</button>
+                `;
+                archiveBoard.appendChild(card);
+    
+                // Add event listener to the unarchive button
+                card.querySelector('.unarchive-btn').addEventListener('click', () => {
+                    unarchiveCard(cardData);
+                });
+            });
+    
+            function unarchiveCard(cardData) {
+                // Remove card from archivedCards array
+                const updatedArchivedCards = archivedCards.filter(card => card.id !== cardData.id);
+                localStorage.setItem('archivedCards', JSON.stringify(updatedArchivedCards));
+    
+                // Remove card element from the archive board
+                const cardElement = document.querySelector(`.kanban-card[data-card-id='${cardData.id}']`);
+                cardElement.remove();
+    
+                // Optionally, you can also store unarchived cards back to the main Kanban board storage
+                // Here we are just showing a console message as an example
+                console.log(`Card with ID ${cardData.id} has been unarchived.`);
             }
-        }
-    });
-});
-
-// Initialize sortable for the popup container
-new Sortable(document.getElementById('popupCards'), {
-    group: 'kanban',
-    animation: 150,
-    onAdd: function (evt) {
-        // Logic for when a card is added to the popup
-        console.log('Card moved to popup:', evt.item.getAttribute('data-card-id'));
-    }
-});
-
-// Rating system logic
-document.querySelectorAll('.rating .fa-star').forEach(star => {
-    star.addEventListener('click', function() {
-        const value = this.getAttribute('data-value');
-        const card = this.closest('.kanban-card');
-        card.querySelectorAll('.fa-star').forEach(s => {
-            s.style.color = s.getAttribute('data-value') <= value ? '#ffc107' : '#e4e5e9';
         });
-    });
-});
+        </script>
+        
 
-// Close popup button logic
-document.getElementById('popupCloseBtn').addEventListener('click', function() {
-    document.getElementById('popupContainer').style.display = 'none';
-});
+    </body>
 
-// When page loads, retrieve card state from local storage and recreate cards in popup
-document.addEventListener('DOMContentLoaded', function() {
-    const cardState = retrieveCardState();
-    if (cardState) {
-        const stageId = cardState.stageId;
-        const cardId = cardState.cardId;
-        const card = document.querySelector(`.kanban-card[data-card-id="${cardId}"]`);
-        if (stageId === 'popup' && card) {
-            document.getElementById('popupCards').appendChild(card);
-            document.getElementById('popupContainer').style.display = 'block';
-        }
-    }
-});
-</script>
 {% endblock %}
