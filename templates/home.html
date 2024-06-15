@@ -186,12 +186,45 @@
             z-index: 1000;
         }
         .trash-icon {
-            color: #721c24;
+            color: #e2162a;
             font-size: 24px;
         }
+        .archive-area {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            border: 2px dashed #ccc;
+            padding: 10px;
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 150px; /* Smaller width */
+            height: 150px; /* Smaller height */
+            margin-left: 400px;
         
+        }
+
+        .archive-area.dragover {
+            background-color: #3f4144;
+            border-color: #adb5bd;
+        }
+
+     
+        
+
+        .kanban-card {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+       
         
     </style>
+   
 </head>
 <body>
     <div class="wrapper">

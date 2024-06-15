@@ -1,4 +1,4 @@
-{% extends "dashboard.html" %}
+{% extends "home.html" %}
 
 {% load static %}
 {% block content %}
@@ -11,16 +11,15 @@
                 <!-- Archived cards will be rendered here -->
             </div>
         </div>
-    </body>
-    
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
         <script>
         document.addEventListener('DOMContentLoaded', () => {
             const archiveBoard = document.getElementById('archive-board');
-    
+        
             // Get archived cards from local storage
             const archivedCards = JSON.parse(localStorage.getItem('archivedCards')) || [];
-    
+        
             // Render archived cards
             archivedCards.forEach(cardData => {
                 const card = document.createElement('div');
@@ -33,30 +32,28 @@
                     <button class="btn btn-secondary unarchive-btn"><i class="fas fa-undo"></i> Unarchive</button>
                 `;
                 archiveBoard.appendChild(card);
-    
+        
                 // Add event listener to the unarchive button
                 card.querySelector('.unarchive-btn').addEventListener('click', () => {
                     unarchiveCard(cardData);
                 });
             });
-    
+        
             function unarchiveCard(cardData) {
                 // Remove card from archivedCards array
                 const updatedArchivedCards = archivedCards.filter(card => card.id !== cardData.id);
                 localStorage.setItem('archivedCards', JSON.stringify(updatedArchivedCards));
-    
+        
                 // Remove card element from the archive board
                 const cardElement = document.querySelector(`.kanban-card[data-card-id='${cardData.id}']`);
                 cardElement.remove();
-    
+        
                 // Optionally, you can also store unarchived cards back to the main Kanban board storage
                 // Here we are just showing a console message as an example
                 console.log(`Card with ID ${cardData.id} has been unarchived.`);
             }
         });
         </script>
-        
-
     </body>
 
 {% endblock %}
