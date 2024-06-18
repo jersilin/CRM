@@ -17,24 +17,17 @@
                     <h5>Interest in your product</h5>
                     <p>The Jackson group</p>
                     <p>Revenue: $1000</p>
-                    
-                    
                 </div>
                 <div class="kanban-card" data-card-id="2">
                     <h5>One open space1</h5>
                     <p>Lumber</p>
                     <p>Revenue: $2000</p>
-                    
-                    
                 </div>
-                <div class="kanban-card" data-card-id="2">
+                <div class="kanban-card" data-card-id="3">
                     <h5>One open space2</h5>
                     <p>Lumber</p>
                     <p>Revenue: $2000</p>
-                    
-                    
                 </div>
-                <!-- Add more cards as needed -->
             </div>
         </div>
     </div>
@@ -44,11 +37,6 @@
         <i class="fas fa-trash trash-icon"></i>
         <p class="text-primary">Drop here to archive</p>
     </div>
-    
-    <!-- <div id="trash-popup" class="trash-popup">
-        <i class="fas fa-trash trash-icon"></i>
-        <p>Card has been Archived</p>
-    </div> -->
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
@@ -62,6 +50,9 @@
             new Sortable(stage, {
                 group: 'kanban',
                 animation: 150,
+                ghostClass: 'sortable-ghost',
+                chosenClass: 'sortable-chosen',
+                dragClass: 'sortable-drag',
                 onStart: function (evt) {
                     evt.item.classList.add('dragging'); // Add dragging class to the card
                     archiveArea.style.display = 'flex'; // Show the archive area when dragging starts
@@ -69,6 +60,10 @@
                 onEnd: function (evt) {
                     evt.item.classList.remove('dragging'); // Remove dragging class from the card
                     archiveArea.style.display = 'none'; // Hide the archive area when dragging ends
+                },
+                onMove: function (evt) {
+                    // Disable sorting when dragging over the archive area
+                    return !archiveArea.contains(evt.related);
                 }
             });
         });
@@ -93,13 +88,7 @@
             }
         });
     
-        function showTrashPopup() {
-            trashPopup.style.display = 'flex';
-            setTimeout(() => {
-                trashPopup.style.display = 'none';
-            }, 1500); // Show the popup for 1.5 seconds
-        }
-    
+       
         function archiveCard(itemEl) {
             // Get card data
             const cardData = {
@@ -163,5 +152,6 @@
         removeArchivedCards();
     });
     </script>
+    
 </body>
 {% endblock %}

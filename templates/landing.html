@@ -212,6 +212,11 @@
     background-color: #3f4144;
     border-color: #adb5bd;
 }
+.carousel-inner img{
+        width: 100%;
+        height: 400px;
+        
+    }
 
 .kanban-card {
     background-color: #fff;
@@ -222,42 +227,67 @@
 }
 
 
-.sortable-ghost {
-    opacity: 0.4;
-}
-
-.sortable-chosen {
-    background-color: #f0f0f0;
-}
-
-.sortable-drag {
-    cursor: move;
-} 
+       
         
     </style>
    
 </head>
 <body>
-    <div class="wrapper">
-        <!-- Top Navbar -->
-        <nav class="navbar navbar-expand-sm bg-light navbar-light">
-            <a class="navbar-brand ml-5" href="#" style="font-family: italic;">CRM</a>
-        </nav>
-
-      
-        <div id="mySidebar" class="side-navbar">
-            <a class="nav-link" href="{% url 'landing' %}">Home</a>
-            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-            <a class="nav-link" href="{% url 'archieve' %}">Archived</a>
-            
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <a class="navbar-brand" href="#" style="font-family: italic;">CRM</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'landing' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">price</a>
+                </li>
+               
+            </ul>
         </div>
-
-        <!-- Content -->
-        <div class="content">
-            <span class="openbtn" onclick="openNav()">&#9776;</span>
-            {% block content %}
+    </nav>
+    
+            <div id="demo" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'images/img2.jpeg' %}" alt="Library Image" class="d-block w-100">
+                        
+                    </div>
+                </div>
+            </div>
             
-            {% endblock %}
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>All CRM needs solutions, simple and modern</h3>
+                        <p>Customer relationship management is a process in which a business or other organization administers its interactions with customers, typically using data analysis to study large amounts of information.</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="img-hover-zoom">
+                            <img src="{% static 'images/img1.jpeg' %}" alt="CRM Image" class="img-fluid rounded">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <h3 class="text-center text-primary mt-5">Managing your sales process was never this easy</h3>
+                    </div>
+                    <div class="container">
+                        <h5 class="text-center">The principles, practices, and guidelines an organization follows when interacting with its customers</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-3">
+        <img src="{% static 'images/graph.png' %}" alt="Graph" class="img-fluid">
+    </div> 
+             
+          
 
             <footer class="bg-dark text-light pt-5 pb-4 mt-5">
                 <div class="container-fluid">
@@ -289,7 +319,7 @@
     </div>
 
 
-    <script>
+    <!-- <script>
         function openNav() {
             document.getElementById("mySidebar").style.left = "0";
         }
@@ -313,7 +343,7 @@
         } else {
             closeNav();
         }
-    </script>
+    </script> -->
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

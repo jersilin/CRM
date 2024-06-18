@@ -14,3 +14,6 @@ def dashboard(request):
 
 def archieve(request):
    return render(request, 'archieve.html')
+
+def landing(request):
+   return render(request, 'landing.html')
