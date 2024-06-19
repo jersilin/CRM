@@ -38,119 +38,155 @@
         <p class="text-primary">Drop here to archive</p>
     </div>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const archiveArea = document.getElementById('archive-area');
-        const trashPopup = document.getElementById('trash-popup');
+  document.addEventListener('DOMContentLoaded', () => {
+    const archiveArea = document.getElementById('archive-area');
     
-        // Initialize drag-and-drop functionality
-        document.querySelectorAll('.kanban-cards').forEach(stage => {
-            new Sortable(stage, {
-                group: 'kanban',
-                animation: 150,
-                ghostClass: 'sortable-ghost',
-                chosenClass: 'sortable-chosen',
-                dragClass: 'sortable-drag',
-                onStart: function (evt) {
-                    evt.item.classList.add('dragging'); // Add dragging class to the card
-                    archiveArea.style.display = 'flex'; // Show the archive area when dragging starts
-                },
-                onEnd: function (evt) {
-                    evt.item.classList.remove('dragging'); // Remove dragging class from the card
-                    archiveArea.style.display = 'none'; // Hide the archive area when dragging ends
-                },
-                onMove: function (evt) {
-                    // Disable sorting when dragging over the archive area
-                    return !archiveArea.contains(evt.related);
-                }
-            });
-        });
-    
-        // Handle the drag and drop events for archiving
-        archiveArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            archiveArea.classList.add('dragover');
-        });
-    
-        archiveArea.addEventListener('dragleave', () => {
-            archiveArea.classList.remove('dragover');
-        });
-    
-        archiveArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            archiveArea.classList.remove('dragover');
-    
-            const draggedCard = document.querySelector('.kanban-card.dragging');
-            if (draggedCard) {
-                archiveCard(draggedCard);
+    // Initialize drag-and-drop functionality
+    document.querySelectorAll('.kanban-cards').forEach(stage => {
+        new Sortable(stage, {
+            group: 'kanban',
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            chosenClass: 'sortable-chosen',
+            dragClass: 'sortable-drag',
+            onStart: function (evt) {
+                evt.item.classList.add('dragging'); // Add dragging class to the card
+                archiveArea.style.display = 'flex'; // Show the archive area when dragging starts
+            },
+            onEnd: function (evt) {
+                evt.item.classList.remove('dragging'); // Remove dragging class from the card
+                archiveArea.style.display = 'none'; // Hide the archive area when dragging ends
+            },
+            onMove: function (evt) {
+                // Disable sorting when dragging over the archive area
+                return !archiveArea.contains(evt.related);
             }
         });
-    
-       
-        function archiveCard(itemEl) {
-            // Get card data
-            const cardData = {
-                id: itemEl.getAttribute('data-card-id'),
-                title: itemEl.querySelector('h5').innerText,
-                description: itemEl.querySelector('p').innerText,
-                revenue: itemEl.querySelector('p:nth-of-type(2)').innerText
-            };
-    
-            // Get current archived cards from local storage
-            let archivedCards = JSON.parse(localStorage.getItem('archivedCards')) || [];
-    
-            // Add new card to archived cards
-            archivedCards.push(cardData);
-    
-            // Save updated archived cards to local storage
-            localStorage.setItem('archivedCards', JSON.stringify(archivedCards));
-    
-            // Remove card from DOM
-            itemEl.remove();
-    
-            // Show popup
-            showTrashPopup();
-    
-            // Navigate to the archive page after a delay
-            setTimeout(() => {
-                window.location.href = 'archieve'; // Replace with the URL of your archive page
-            }, 1500); // Delay to allow the popup to be shown before navigation
-        }
-    
-        document.querySelectorAll('.rating .fa-star').forEach(star => {
-            star.addEventListener('click', function() {
-                const value = this.getAttribute('data-value');
-                const card = this.closest('.kanban-card');
-                card.querySelectorAll('.fa-star').forEach(s => {
-                    s.style.color = s.getAttribute('data-value') <= value ? '#ffc107' : '#e4e5e9';
-                });
-            });
-        });
-    
-        // Add event listeners for archive buttons
-        document.querySelectorAll('.archive-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const card = this.closest('.kanban-card');
-                archiveCard(card);
-            });
-        });
-    
-        // Remove archived cards on page load
-        function removeArchivedCards() {
-            const archivedCards = JSON.parse(localStorage.getItem('archivedCards')) || [];
-            archivedCards.forEach(card => {
-                const cardElement = document.querySelector(`.kanban-card[data-card-id='${card.id}']`);
-                if (cardElement) {
-                    cardElement.remove();
-                }
-            });
-        }
-    
-        // Call the function to remove archived cards
-        removeArchivedCards();
     });
+
+    // Handle the drag and drop events for archiving
+    archiveArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        archiveArea.classList.add('dragover');
+    });
+
+    archiveArea.addEventListener('dragleave', () => {
+        archiveArea.classList.remove('dragover');
+    });
+
+    archiveArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        archiveArea.classList.remove('dragover');
+
+        const draggedCard = document.querySelector('.kanban-card.dragging');
+        if (draggedCard) {
+            archiveCard(draggedCard);
+        }
+    });
+
+    function archiveCard(itemEl) {
+        // Get card data
+        const cardData = {
+            id: itemEl.getAttribute('data-card-id'),
+            title: itemEl.querySelector('h5').innerText,
+            description: itemEl.querySelector('p').innerText,
+            revenue: itemEl.querySelector('p:nth-of-type(2)').innerText
+        };
+
+        // Get current archived cards from local storage
+        let archivedCards = JSON.parse(localStorage.getItem('archivedCards')) || [];
+
+        // Add new card to archived cards
+        archivedCards.push(cardData);
+
+        // Save updated archived cards to local storage
+        localStorage.setItem('archivedCards', JSON.stringify(archivedCards));
+
+        // Remove card from DOM
+        itemEl.remove();
+    }
+
+    // Remove archived cards on page load
+    function removeArchivedCards() {
+        const archivedCards = JSON.parse(localStorage.getItem('archivedCards')) || [];
+        archivedCards.forEach(card => {
+            const cardElement = document.querySelector(`.kanban-card[data-card-id='${card.id}']`);
+            if (cardElement) {
+                cardElement.remove();
+            }
+        });
+    }
+
+    // Call the function to remove archived cards
+    removeArchivedCards();
+
+    // Touch events handling for mobile devices
+    document.querySelectorAll('.kanban-card').forEach(card => {
+        card.addEventListener('touchstart', handleTouchStart, false);
+        card.addEventListener('touchmove', handleTouchMove, false);
+        card.addEventListener('touchend', handleTouchEnd, false);
+    });
+
+    let touchStartX, touchStartY, currentCard;
+
+    function handleTouchStart(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        currentCard = e.target.closest('.kanban-card');
+        currentCard.classList.add('dragging');
+        archiveArea.style.display = 'flex'; // Show the archive area when dragging starts
+    }
+
+    function handleTouchMove(e) {
+        e.preventDefault();
+        const touchX = e.touches[0].clientX;
+        const touchY = e.touches[0].clientY;
+        const offsetX = touchX - touchStartX;
+        const offsetY = touchY - touchStartY;
+
+        currentCard.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+
+        const archiveRect = archiveArea.getBoundingClientRect();
+        const cardRect = currentCard.getBoundingClientRect();
+
+        if (
+            cardRect.top >= archiveRect.top &&
+            cardRect.left >= archiveRect.left &&
+            cardRect.bottom <= archiveRect.bottom &&
+            cardRect.right <= archiveRect.right
+        ) {
+            archiveArea.classList.add('dragover');
+        } else {
+            archiveArea.classList.remove('dragover');
+        }
+    }
+
+    function handleTouchEnd(e) {
+        e.preventDefault();
+        const archiveRect = archiveArea.getBoundingClientRect();
+        const cardRect = currentCard.getBoundingClientRect();
+
+        if (
+            cardRect.top >= archiveRect.top &&
+            cardRect.left >= archiveRect.left &&
+            cardRect.bottom <= archiveRect.bottom &&
+            cardRect.right <= archiveRect.right
+        ) {
+            archiveCard(currentCard);
+        }
+
+        currentCard.classList.remove('dragging');
+        currentCard.style.transform = 'none';
+        archiveArea.style.display = 'none'; // Hide the archive area when dragging ends
+        archiveArea.classList.remove('dragover');
+        currentCard = null;
+    }
+});
+
+
+
     </script>
     
 </body>
