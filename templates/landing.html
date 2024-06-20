@@ -240,6 +240,38 @@
             transform: scale(1.1);
             filter: brightness(80%);
         }
+        .integrates-with {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.integrations {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-top: 20px;
+}
+
+.integration {
+    text-align: center;
+}
+
+.integration i {
+    font-size: 3rem; /* Adjust icon size as needed */
+    color: #333; /* Adjust icon color */
+}
+
+.integration p {
+    margin-top: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .integrations {
+        flex-direction: column;
+    }
+}
+
        
         
     </style>
@@ -288,18 +320,39 @@
                             <img src="{% static 'images/img1.jpeg' %}" alt="CRM Image" class="img-fluid rounded">
                         </div>
                     </div>
-                    <div class="col-12">
-                        <h3 class="text-center text-primary mt-5">Managing your sales process was never this easy</h3>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-12 text-center">
+                        <h3>Managing your sales process was never this easy</h3>
+                        <h5>The principles, practices, and guidelines an organization follows when interacting with its customers</h5>
                     </div>
-                    <div class="container">
-                        <h5 class="text-center">The principles, practices, and guidelines an organization follows when interacting with its customers</h5>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 d-flex justify-content-center">
+                        <img src="{% static 'images/graph.png' %}" alt="Graph" class="img-fluid">
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <h2 class="text-center">Integrates with:</h2>
+                        <div class="integrations d-flex justify-content-around">
+                            <div class="integration text-center">
+                                <i class="fas fa-envelope fa-2x"></i>
+                                <p>Email</p>
+                            </div>
+                            <div class="integration text-center">
+                                <i class="fas fa-comments fa-2x"></i>
+                                <p>Live chat</p>
+                            </div>
+                            <div class="integration text-center">
+                                <i class="fas fa-sms fa-2x"></i>
+                                <p>SMS</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="container mt-3">
-        <img src="{% static 'images/graph.png' %}" alt="Graph" class="img-fluid">
-    </div> 
-             
+            
           
 
             <footer class="bg-dark text-light pt-5 pb-4 mt-5">

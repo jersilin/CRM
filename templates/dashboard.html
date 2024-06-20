@@ -5,66 +5,68 @@
 
 <body>
     
+    
     <div class="container">
         <img src="{% static 'images/graph.png' %}" alt="Graph" class="img-fluid">
     </div>
     
-    <div id="kanban-board" class="kanban-board mt-4">
-        <div class="kanban-stage" data-stage-id="1">
-            <h4 class="text-center">Activities</h4>
-            <div class="kanban-cards" id="stage-1">
-                <div class="kanban-card" data-card-id="1">
-                    <h5>Interest in your product</h5>
-                    <p>The Jackson group</p>
-                    <p>Revenue: $1000</p>
-                </div>
-                <div class="kanban-card" data-card-id="2">
-                    <h5>One open space1</h5>
-                    <p>Lumber</p>
-                    <p>Revenue: $2000</p>
-                </div>
-                <div class="kanban-card" data-card-id="3">
-                    <h5>One open space2</h5>
-                    <p>Lumber</p>
-                    <p>Revenue: $2000</p>
-                </div>
+   <div id="kanban-board" class="kanban-board mt-4">
+    <div class="kanban-stage" data-stage-id="1">
+        <h4 class="text-center">Activities</h4>
+        <div class="kanban-cards" id="stage-1">
+            <div class="kanban-card" data-card-id="1" draggable="true">
+                <h5>Interest in your product</h5>
+                <p>The Jackson group</p>
+                <p>Revenue: $1000</p>
+            </div>
+            <div class="kanban-card" data-card-id="2" draggable="true">
+                <h5>One open space1</h5>
+                <p>Lumber</p>
+                <p>Revenue: $2000</p>
+            </div>
+            <div class="kanban-card" data-card-id="3" draggable="true">
+                <h5>One open space2</h5>
+                <p>Lumber</p>
+                <p>Revenue: $2000</p>
             </div>
         </div>
     </div>
-    
-    <!-- Archive Area (Trash Bin) -->
-    <div id="archive-area" class="archive-area">
-        <i class="fas fa-trash trash-icon"></i>
-        <p class="text-primary">Drop here to archive</p>
-    </div>
-    
-    
+</div>
+
+<!-- Archive Area (Trash Bin) -->
+<div id="archive-area" class="archive-area">
+    <i class="fas fa-trash trash-icon"></i>
+    <p class="text-primary">Drop here to archive</p>
+</div>
+
     <script>
   document.addEventListener('DOMContentLoaded', () => {
     const archiveArea = document.getElementById('archive-area');
-    
-    // Initialize drag-and-drop functionality
-    document.querySelectorAll('.kanban-cards').forEach(stage => {
-        new Sortable(stage, {
-            group: 'kanban',
-            animation: 150,
-            ghostClass: 'sortable-ghost',
-            chosenClass: 'sortable-chosen',
-            dragClass: 'sortable-drag',
-            onStart: function (evt) {
-                evt.item.classList.add('dragging'); // Add dragging class to the card
-                archiveArea.style.display = 'flex'; // Show the archive area when dragging starts
-            },
-            onEnd: function (evt) {
-                evt.item.classList.remove('dragging'); // Remove dragging class from the card
-                archiveArea.style.display = 'none'; // Hide the archive area when dragging ends
-            },
-            onMove: function (evt) {
-                // Disable sorting when dragging over the archive area
-                return !archiveArea.contains(evt.related);
-            }
+
+    // Initialize Sortable for desktop drag-and-drop functionality
+    function initSortable() {
+        document.querySelectorAll('.kanban-cards').forEach(stage => {
+            new Sortable(stage, {
+                group: 'kanban',
+                animation: 150,
+                ghostClass: 'sortable-ghost',
+                chosenClass: 'sortable-chosen',
+                dragClass: 'sortable-drag',
+                onStart: function (evt) {
+                    evt.item.classList.add('dragging'); // Add dragging class to the card
+                    archiveArea.style.display = 'flex'; // Show the archive area when dragging starts
+                },
+                onEnd: function (evt) {
+                    evt.item.classList.remove('dragging'); // Remove dragging class from the card
+                    archiveArea.style.display = 'none'; // Hide the archive area when dragging ends
+                },
+                onMove: function (evt) {
+                    // Allow sorting when dragging over the archive area
+                    return !archiveArea.contains(evt.to);
+                }
+            });
         });
-    });
+    }
 
     // Handle the drag and drop events for archiving
     archiveArea.addEventListener('dragover', (e) => {
@@ -122,13 +124,16 @@
     // Call the function to remove archived cards
     removeArchivedCards();
 
-    // Touch events handling for mobile devices
-    document.querySelectorAll('.kanban-card').forEach(card => {
-        card.addEventListener('touchstart', handleTouchStart, false);
-        card.addEventListener('touchmove', handleTouchMove, false);
-        card.addEventListener('touchend', handleTouchEnd, false);
-    });
+    // Initialize touch events for mobile devices
+    function initTouchEvents() {
+        document.querySelectorAll('.kanban-card').forEach(card => {
+            card.addEventListener('touchstart', handleTouchStart, false);
+            card.addEventListener('touchmove', handleTouchMove, false);
+            card.addEventListener('touchend', handleTouchEnd, false);
+        });
+    }
 
+    // Touch event handlers
     let touchStartX, touchStartY, currentCard;
 
     function handleTouchStart(e) {
@@ -183,11 +188,23 @@
         archiveArea.classList.remove('dragover');
         currentCard = null;
     }
+
+    // Detect if the device is touch-capable
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    if (isTouchDevice) {
+        initTouchEvents();
+    } else {
+        initSortable();
+    }
 });
 
 
-
     </script>
+    
+
+
+   
     
 </body>
 {% endblock %}
