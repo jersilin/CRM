@@ -23,6 +23,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    
 }
 
 .navbar {
@@ -271,14 +272,72 @@
         flex-direction: column;
     }
 }
-
+.feature {
+            padding: 40px 0;
+        }
+        
        
+        .testimonials blockquote {
+            border-left: 5px solid #007bff;
+            padding-left: 15px;
+            margin: 20px 0;
+        }
+
+.testimonials .card {
+    border: none; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); 
+    padding: 20px; 
+    background-color: #fff;
+}
+
+.testimonials blockquote {
+    font-size: 1.2rem; 
+    margin-bottom: 20px; 
+}
+
+.testimonials blockquote p {
+    font-style: italic; 
+}
+
+.testimonials blockquote footer {
+    margin-top: 15px; 
+    font-weight: bold; 
+}
+/* Features Section */
+.features {
+    padding: 50px 0; /* Padding top and bottom */
+}
+
+.features .card {
+    border: none; /* Remove card borders */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    padding: 20px; /* Padding inside the card */
+    background-color: #fff; /* Card background color */
+    height: 100%; /* Ensure cards are the same height */
+}
+
+.features .card-title {
+    font-size: 1.5rem; /* Title font size */
+    margin-bottom: 10px; /* Bottom margin */
+}
+
+.features .card-text {
+    font-size: 1.1rem; /* Text font size */
+    color: #555; /* Text color */
+}
+.card {
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+        }
+      
         
     </style>
    
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <a class="navbar-brand" href="#" style="font-family: italic;">CRM</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -293,7 +352,7 @@
                     <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">price</a>
+                    <a class="nav-link" href="#">Price</a>
                 </li>
                
             </ul>
@@ -312,7 +371,7 @@
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-md-6">
-                        <h3>All CRM needs solutions, simple and modern</h3>
+                        <h3 class="text-primary">All CRM needs solutions, simple and modern</h3>
                         <p>Customer relationship management is a process in which a business or other organization administers its interactions with customers, typically using data analysis to study large amounts of information.</p>
                     </div>
                     <div class="col-md-6">
@@ -321,20 +380,101 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-5">
-                    <div class="col-12 text-center">
-                        <h3>Managing your sales process was never this easy</h3>
-                        <h5>The principles, practices, and guidelines an organization follows when interacting with its customers</h5>
+                <div id="features" class="container feature text-center">
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <i class="fas fa-chart-line fa-3x mb-3"></i>
+                            <h4>Sales Tracking</h4>
+                            <p>Track your sales and monitor performance with real-time analytics.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="fas fa-users fa-3x mb-3"></i>
+                            <h4 >Customer Management</h4>
+                            <p>Manage all your customer interactions in one place for better relationships.</p>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="fas fa-envelope fa-3x mb-3"></i>
+                            <h4>Email Marketing</h4>
+                            <p>Run effective email campaigns with our built-in email marketing tools.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="row mt-3">
+                
+                <!-- <div class="row mt-5">
+                    <div class="col-12 text-center">
+                        <h3 class="text-primary">Managing your sales process was never this easy</h3>
+                        <h5>The principles, practices, and guidelines an organization follows when interacting with its customers</h5>
+                    </div>
+                </div> -->
+                <section class="features">
+                    <div class="container">
+                        <h2 class="text-center text-primary">Why Choose Our CRM?</h2>
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Lead Management</h5>
+                                        <p class="card-text">Efficiently capture, qualify, and convert leads into opportunities.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Sales Pipeline Tracking</h5>
+                                        <p class="card-text">Visualize and manage your sales pipeline from lead to close.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Customer Support Integration</h5>
+                                        <p class="card-text">Improve customer satisfaction with seamless support ticket management.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="testimonials">
+                    <div class="container">
+                        <h2 class="text-center text-primary">What Our Customers Say</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <blockquote class="blockquote">
+                                            <p class="mb-0">"Our team has seen a significant increase in efficiency since using this CRM."</p>
+                                            <footer class="blockquote-footer">Jain, CEO at Company ABC</footer>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <blockquote class="blockquote">
+                                            <p class="mb-0">"The CRM's reporting features have given us valuable insights into our sales performance."</p>
+                                            <footer class="blockquote-footer">Rose, Sales Manager at Company XYZ</footer>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                
+                <!-- <div class="row mt-3">
                     <div class="col-12 d-flex justify-content-center">
                         <img src="{% static 'images/graph.png' %}" alt="Graph" class="img-fluid">
                     </div>
-                </div>
+                </div> -->
                 <div class="row mt-5">
                     <div class="col-12">
-                        <h2 class="text-center">Integrates with:</h2>
+                        <h2 class="text-center text-primary">Integrates with</h2>
                         <div class="integrations d-flex justify-content-around">
                             <div class="integration text-center">
                                 <i class="fas fa-envelope fa-2x"></i>
@@ -352,6 +492,10 @@
                     </div>
                 </div>
             </div>
+            
+    
+            
+            
             
           
 

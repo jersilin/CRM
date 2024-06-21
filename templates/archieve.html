@@ -63,7 +63,7 @@
             padding: 10px 15px;
             text-decoration: none;
             font-size: 18px;
-            color: #333;
+            color:white;
             display: block;
             transition: 0.3s;
         }
@@ -215,126 +215,133 @@
 </head>
 <body>
     <div class="wrapper">
-        <!-- Top Navbar -->
-        <nav class="navbar navbar-expand-sm bg-light navbar-light">
-            <a class="navbar-brand ml-5" href="#" style="font-family: italic;">CRM</a>
-        </nav>
-        
-        <div id="mySidebar" class="side-navbar">
-            <a class="nav-link" href="{% url 'landing' %}">Home</a>
-            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-            <a class="nav-link" href="{% url 'archieve' %}">Archived</a>
-        </div>
-        <div class="content">
-            <span class="openbtn" onclick="openNav()">&#9776;</span>
-            <div class="container">
-                <h2 class="text-center mt-4">Archived Cards</h2>
-                <div id="archive-board" class="kanban-board mt-4">
-                    <!-- Archived cards will be rendered here -->
-                </div>
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand ml-5" href="#" style="font-family: italic;">CRM</a>
+    </nav>
+    
+    <div id="mySidebar" class="side-navbar bg-dark navbar-dark">
+        <a class="nav-link" href="{% url 'landing' %}">Home</a>
+        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+        <a class="nav-link" href="{% url 'archieve' %}">Archived</a>
+    </div>
+    <div class="content">
+        <span class="openbtn" onclick="openNav()">&#9776;</span>
+        <div class="container">
+            <h2 class="text-center mt-4">Archived Cards</h2>
+            <div id="archive-board" class="kanban-board mt-4">
+                <!-- Archived cards will be rendered here -->
             </div>
-            <span class="openbtn" onclick="openNav()">&#9776;</span>
-            {% block content %}
-            {% endblock %}
+        </div>
+        <span class="openbtn" onclick="openNav()">&#9776;</span>
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+
+<footer class="footer bg-dark text-light pt-5 pb-4 mt-5">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                <h5 class="text-primary">Contact</h5>
+                <p>xyz street</p>
+                <p>Thrissur, Kerala</p>
+                <p>Ph: 912563879</p>
+                <p>Email: xyz@gmail.com</p>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                <h5 class="text-primary">Customer policies</h5>
+                <p>Contact us</p>
+                <p>FAQ</p>
+                <p>Shipping</p>
+                <p>Returns</p>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                <h5 class="text-primary">Useful links</h5>
+                <p><a class="text-light" href="#" style="text-decoration: none;">Blogs</a></p>
+                <p><a class="text-light" href="#" style="text-decoration: none;">Careers</a></p>
+                <p><a class="text-light" href="#" style="text-decoration: none;">Corporate information</a></p>
+            </div>
         </div>
     </div>
+</footer>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidebar").style.left = "0";
+    }
     
-    <footer class="footer bg-dark text-light pt-5 pb-4 mt-5">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                    <h5 class="text-primary">Contact</h5>
-                    <p>xyz street</p>
-                    <p>Thrissur, Kerala</p>
-                    <p>Ph: 912563879</p>
-                    <p>Email: xyz@gmail.com</p>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                    <h5 class="text-primary">Customer policies</h5>
-                    <p>Contact us</p>
-                    <p>FAQ</p>
-                    <p>Shipping</p>
-                    <p>Returns</p>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                    <h5 class="text-primary">Useful links</h5>
-                    <p><a class="text-light" href="#" style="text-decoration: none;">Blogs</a></p>
-                    <p><a class="text-light" href="#" style="text-decoration: none;">Careers</a></p>
-                    <p><a class="text-light" href="#" style="text-decoration: none;">Corporate information</a></p>
-                </div>
-            </div>
-        </div>
-    </footer>
+    function closeNav() {
+        document.getElementById("mySidebar").style.left = "-250px";
+    }
     
-    <script>
-        function openNav() {
-            document.getElementById("mySidebar").style.left = "0";
-        }
-        
-        function closeNav() {
-            document.getElementById("mySidebar").style.left = "-250px";
-        }
-        
-        // Automatically hide the sidebar when window is resized to smaller screens
-        window.addEventListener('resize', function() {
-            if (window.innerWidth <= 768) {
-                closeNav();
-            } else {
-                openNav();
-            }
-        });
-        
-        // Initial check to ensure correct sidebar state on page load
-        if (window.innerWidth > 768) {
-            openNav();
-        } else {
+    // Automatically hide the sidebar when window is resized to smaller screens
+    window.addEventListener('resize', function() {
+        if (window.innerWidth <= 768) {
             closeNav();
+        } else {
+            openNav();
         }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const archiveBoard = document.getElementById('archive-board');
-            
-            // Get archived cards from local storage
-            const archivedCards = JSON.parse(localStorage.getItem('archivedCards')) || [];
-            
-            // Render archived cards
-            archivedCards.forEach(cardData => {
-                const card = document.createElement('div');
-                card.classList.add('kanban-card');
-                card.setAttribute('data-card-id', cardData.id);
-                card.innerHTML = `
-                    <h5>${cardData.title}</h5>
-                    <p>${cardData.description}</p>
-                    <p>${cardData.revenue}</p>
-                    <button class="btn btn-secondary unarchive-btn"><i class="fas fa-undo"></i> Unarchive</button>
-                `;
-                archiveBoard.appendChild(card);
-                
-                // Add event listener to the unarchive button
-                card.querySelector('.unarchive-btn').addEventListener('click', () => {
-                    unarchiveCard(cardData);
-                });
-            });
-            
-            function unarchiveCard(cardData) {
-                // Remove card from archivedCards array
-                const updatedArchivedCards = archivedCards.filter(card => card.id !== cardData.id);
-                localStorage.setItem('archivedCards', JSON.stringify(updatedArchivedCards));
-                
-                // Remove card element from the archive board
-                const cardElement = document.querySelector(`.kanban-card[data-card-id='${cardData.id}']`);
-                cardElement.remove();
-                
-                // Optionally, you can also store unarchived cards back to the main Kanban board storage
-                // Here we are just showing a console message as an example
-                console.log(`Card with ID ${cardData.id} has been unarchived.`);
-            }
-        });
-    </script>
+    });
     
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+    // Initial check to ensure correct sidebar state on page load
+    if (window.innerWidth > 768) {
+        openNav();
+    } else {
+        closeNav();
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+    const archiveBoard = document.getElementById('archive-board');
+    
+    // Get archived cards from local storage
+    let archivedCards = JSON.parse(localStorage.getItem('archivedCards')) || [];
+    
+    // Function to render archived cards
+    function renderArchivedCards() {
+        archiveBoard.innerHTML = ''; // Clear existing cards
+        
+        archivedCards.forEach(cardData => {
+            const card = document.createElement('div');
+            card.classList.add('kanban-card');
+            card.setAttribute('data-card-id', cardData.id);
+            card.innerHTML = `
+                <h5>${cardData.title}</h5>
+                <p>${cardData.description}</p>
+                <p>${cardData.revenue}</p>
+                <button class="btn btn-secondary unarchive-btn"><i class="fas fa-undo"></i> Unarchive</button>
+            `;
+            archiveBoard.appendChild(card);
+            
+            // Add event listener to the unarchive button
+            card.querySelector('.unarchive-btn').addEventListener('click', () => {
+                unarchiveCard(cardData);
+            });
+        });
+    }
+    
+    // Initial render of archived cards
+    renderArchivedCards();
+    
+    function unarchiveCard(cardData) {
+        // Remove card from archivedCards array
+        archivedCards = archivedCards.filter(card => card.id !== cardData.id);
+        localStorage.setItem('archivedCards', JSON.stringify(archivedCards));
+        
+        // Remove card element from the archive board
+        const cardElement = document.querySelector(`.kanban-card[data-card-id='${cardData.id}']`);
+        cardElement.remove();
+        
+        console.log(`Card with ID ${cardData.id} has been unarchived.`);
+    }
+});
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
