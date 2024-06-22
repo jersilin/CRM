@@ -15,7 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-   
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
     <style>
       body {
@@ -26,7 +26,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    
+    background-color: #D4E6F1;
 }
 
 .navbar {
@@ -34,13 +34,15 @@
     top: 0;
     width: 100%;
     z-index: 1;
+    background-color: #00246B;
 }
 
 .wrapper {
     display: flex;
     width: 100%;
 }
-.navbar{
+
+.navbar {
     color: black;
 }
 
@@ -49,9 +51,10 @@
     color: #fff;
     text-align: center;
     padding: 10px;
-    position: fixed;
+    width: calc(100% - 250px);
+    margin-left: 250px;
+    position: relative;
     bottom: 0;
-    width: 100%;
 }
 
 .side-navbar {
@@ -60,7 +63,7 @@
     position: fixed;
     top: 56px;
     left: 0;
-    background-color: #f8f9fa;
+    background-color: #00246B;
     overflow-x: hidden;
     padding-top: 20px;
     z-index: 2;
@@ -71,7 +74,7 @@
     padding: 10px 15px;
     text-decoration: none;
     font-size: 18px;
-    color:white;
+    color: white;
     display: block;
     transition: 0.3s;
 }
@@ -85,6 +88,7 @@
     padding: 16px;
     transition: margin-left 0.5s;
     margin-top: 56px;
+    flex: 1;
     width: calc(100% - 250px);
 }
 
@@ -96,6 +100,12 @@
     .content {
         margin-left: 0;
         width: 100%;
+    }
+
+    .footer {
+        margin-left: 0;
+        width: 100%;
+        
     }
 }
 
@@ -155,7 +165,6 @@
     opacity: 0.5;
 }
 
-
 .kanban-stage {
     flex: 1;
     margin: 0 10px;
@@ -170,7 +179,6 @@
     flex-wrap: wrap;
     gap: 10px;
 }
-
 
 @media (max-width: 1200px) {
     .kanban-card {
@@ -195,19 +203,21 @@
     font-size: 24px;
 }
 
+
 .archive-area {
     display: none;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width:300px;
-    height: 200px;
+    width: 400px;
+    height: 300px;
     border: 2px dashed #000;
     align-items: center;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.9);
     z-index: 1000;
     flex-direction: column;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .archive-area.dragover {
@@ -216,9 +226,35 @@
 }
 
 
+@media (max-width: 768px) {
+    .archive-area {
+        width: 200px;
+        height: 200px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .archive-area {
+        width: 80%;
+        height: 200px;
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .archive-area .trash-icon {
+        font-size: 1.5em;
+        margin-bottom: 8px;
+    }
+    
+    .archive-area .text-primary {
+        font-size: 1em;
+    }
+}
 
 
-      .sortable-ghost {
+.sortable-ghost {
     opacity: 0.4;
 }
 
@@ -228,14 +264,14 @@
 
 .sortable-drag {
     cursor: move;
-} 
+}
+
 .overview-container {
     background-color: #f1f1f1;
     padding: 20px;
-    border-radius: 8px; 
-    margin-top: 20px; 
+    border-radius: 8px;
+    margin-top: 20px;
 }
-
       
     </style>
    
@@ -243,54 +279,50 @@
 <body>
     <div class="wrapper">
         <!-- Top Navbar -->
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <nav class="navbar navbar-expand-sm  navbar-dark">
             <a class="navbar-brand ml-5" href="#" style="font-family: italic;">CRM</a>
         </nav>
 
-      
-        <div id="mySidebar" class="side-navbar bg-dark navbar-dark">
+        <div id="mySidebar" class="side-navbar  navbar-dark">
             <a class="nav-link" href="{% url 'landing' %}">Home</a>
             <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
             <a class="nav-link" href="{% url 'archieve' %}">Archived</a>
-            
         </div>
 
         <!-- Content -->
         <div class="content">
-            <span class="openbtn" onclick="openNav()">&#9776;</span>
+            <span class="openbtn" onclick="openNav()" style="background-color: #134881;width: 30px;height: 30px;">&#9776;</span>
             {% block content %}
             
             {% endblock %}
-
-            <footer class="bg-dark text-light pt-5 pb-4 mt-5">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                            <h5 class="text-primary">Contact</h5>
-                            <p>xyz street</p>
-                            <p>Thrissur, Kerala</p>
-                            <p>Ph: 912563879</p>
-                            <p>Email: xyz@gmail.com</p>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                            <h5 class="text-primary">Customer policies</h5>
-                            <p>Contact us</p>
-                            <p>FAQ</p>
-                            <p>Shipping</p>
-                            <p>Returns</p>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                            <h5 class="text-primary">Useful links</h5>
-                            <p><a class="text-light" href="#" style="text-decoration: none;">Blogs</a></p>
-                            <p><a class="text-light" href="#" style="text-decoration: none;">Careers</a></p>
-                            <p><a class="text-light" href="#" style="text-decoration: none;">Corporate information</a></p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
-
+    <footer class="footer  text-dark pt-5 pb-4 mt-5" style="background-color:#90AFC5;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                    <h5 class="text-primary">Contact</h5>
+                    <p>xyz street</p>
+                    <p>Thrissur, Kerala</p>
+                    <p>Ph: 912563879</p>
+                    <p>Email: xyz@gmail.com</p>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                    <h5 class="text-primary">Customer policies</h5>
+                    <p>Contact us</p>
+                    <p>FAQ</p>
+                    <p>Shipping</p>
+                    <p>Returns</p>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                    <h5 class="text-primary">Useful links</h5>
+                    <p><a class="text-dark" href="#" style="text-decoration: none;">Blogs</a></p>
+                    <p><a class="text-dark" href="#" style="text-decoration: none;">Careers</a></p>
+                    <p><a class="text-dark" href="#" style="text-decoration: none;">Corporate information</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
         function openNav() {

@@ -19,6 +19,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            background-color: #D4E6F1;
         }
         
         .navbar {
@@ -26,6 +27,7 @@
             top: 0;
             width: 100%;
             z-index: 1;
+            background-color: #00246B;
         }
         
         .wrapper {
@@ -52,7 +54,7 @@
             position: fixed;
             top: 56px;
             left: 0;
-            background-color: #f8f9fa;
+            background-color: #00246B;
             overflow-x: hidden;
             padding-top: 20px;
             z-index: 2;
@@ -216,17 +218,17 @@
 <body>
     <div class="wrapper">
     <!-- Top Navbar -->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-sm  navbar-dark">
         <a class="navbar-brand ml-5" href="#" style="font-family: italic;">CRM</a>
     </nav>
     
-    <div id="mySidebar" class="side-navbar bg-dark navbar-dark">
+    <div id="mySidebar" class="side-navbar navbar-dark">
         <a class="nav-link" href="{% url 'landing' %}">Home</a>
         <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
         <a class="nav-link" href="{% url 'archieve' %}">Archived</a>
     </div>
     <div class="content">
-        <span class="openbtn" onclick="openNav()">&#9776;</span>
+        <span class="openbtn" onclick="openNav()" style="background-color: #134881;width: 30px;height: 30px;">&#9776;</span>
         <div class="container">
             <h2 class="text-center mt-4">Archived Cards</h2>
             <div id="archive-board" class="kanban-board mt-4">
@@ -234,12 +236,11 @@
             </div>
         </div>
         <span class="openbtn" onclick="openNav()">&#9776;</span>
-        {% block content %}
-        {% endblock %}
+        
     </div>
 </div>
 
-<footer class="footer bg-dark text-light pt-5 pb-4 mt-5">
+<footer class="footer  text-dark pt-5 pb-4 mt-5" style="background-color: #90AFC5;">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-sm-6 col-md-4 col-lg-4">
@@ -258,9 +259,9 @@
             </div>
             <div class="col-12 col-sm-6 col-md-4 col-lg-4">
                 <h5 class="text-primary">Useful links</h5>
-                <p><a class="text-light" href="#" style="text-decoration: none;">Blogs</a></p>
-                <p><a class="text-light" href="#" style="text-decoration: none;">Careers</a></p>
-                <p><a class="text-light" href="#" style="text-decoration: none;">Corporate information</a></p>
+                <p><a class="text-dark" href="#" style="text-decoration: none;">Blogs</a></p>
+                <p><a class="text-dark" href="#" style="text-decoration: none;">Careers</a></p>
+                <p><a class="text-dark" href="#" style="text-decoration: none;">Corporate information</a></p>
             </div>
         </div>
     </div>
@@ -338,10 +339,7 @@
 
 </script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+
 
 </body>
 </html>
