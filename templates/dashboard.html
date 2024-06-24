@@ -125,22 +125,22 @@
                 chosenClass: 'sortable-chosen',
                 dragClass: 'sortable-drag',
                 onStart: function (evt) {
-                    evt.item.classList.add('dragging'); // Add dragging class to the card
-                    archiveArea.style.display = 'flex'; // Show the archive area when dragging starts
+                    evt.item.classList.add('dragging'); 
+                    archiveArea.style.display = 'flex'; 
                 },
                 onEnd: function (evt) {
-                    evt.item.classList.remove('dragging'); // Remove dragging class from the card
-                    archiveArea.style.display = 'none'; // Hide the archive area when dragging ends
+                    evt.item.classList.remove('dragging'); 
+                    archiveArea.style.display = 'none'; 
                 },
                 onMove: function (evt) {
-                    // Allow sorting when dragging over the archive area
+                   
                     return !archiveArea.contains(evt.to);
                 }
             });
         });
     }
 
-    // Handle the drag and drop events for archiving
+    
     archiveArea.addEventListener('dragover', (e) => {
         e.preventDefault();
         archiveArea.classList.add('dragover');
@@ -161,7 +161,7 @@
     });
 
     function archiveCard(itemEl) {
-        // Get card data
+        
         const cardData = {
             id: itemEl.getAttribute('data-card-id'),
             title: itemEl.querySelector('h5').innerText,
@@ -169,20 +169,19 @@
             revenue: itemEl.querySelector('p:nth-of-type(2)').innerText
         };
 
-        // Get current archived cards from local storage
+        
         let archivedCards = JSON.parse(localStorage.getItem('archivedCards')) || [];
 
-        // Add new card to archived cards
+        
         archivedCards.push(cardData);
 
-        // Save updated archived cards to local storage
         localStorage.setItem('archivedCards', JSON.stringify(archivedCards));
 
-        // Remove card from DOM
+      
         itemEl.remove();
     }
 
-    // Remove archived cards on page load
+   
     function removeArchivedCards() {
         const archivedCards = JSON.parse(localStorage.getItem('archivedCards')) || [];
         archivedCards.forEach(card => {
@@ -193,10 +192,10 @@
         });
     }
 
-    // Call the function to remove archived cards
+    
     removeArchivedCards();
 
-    // Initialize touch events for mobile devices
+    
     function initTouchEvents() {
         document.querySelectorAll('.kanban-card').forEach(card => {
             card.addEventListener('touchstart', handleTouchStart, false);
@@ -205,7 +204,7 @@
         });
     }
 
-    // Touch event handlers
+    
     let touchStartX, touchStartY, currentCard;
 
     function handleTouchStart(e) {
@@ -213,7 +212,7 @@
         touchStartY = e.touches[0].clientY;
         currentCard = e.target.closest('.kanban-card');
         currentCard.classList.add('dragging');
-        archiveArea.style.display = 'flex'; // Show the archive area when dragging starts
+        archiveArea.style.display = 'flex'; 
     }
 
     function handleTouchMove(e) {
@@ -229,10 +228,10 @@
         const cardRect = currentCard.getBoundingClientRect();
 
         if (
-            cardRect.top >= archiveRect.top &&
-            cardRect.left >= archiveRect.left &&
-            cardRect.bottom <= archiveRect.bottom &&
-            cardRect.right <= archiveRect.right
+            cardRect.top + cardRect.height / 2 >= archiveRect.top &&
+            cardRect.left + cardRect.width / 2 >= archiveRect.left &&
+            cardRect.bottom - cardRect.height / 2 <= archiveRect.bottom &&
+            cardRect.right - cardRect.width / 2 <= archiveRect.right
         ) {
             archiveArea.classList.add('dragover');
         } else {
@@ -246,22 +245,22 @@
         const cardRect = currentCard.getBoundingClientRect();
 
         if (
-            cardRect.top >= archiveRect.top &&
-            cardRect.left >= archiveRect.left &&
-            cardRect.bottom <= archiveRect.bottom &&
-            cardRect.right <= archiveRect.right
+            cardRect.top + cardRect.height / 2 >= archiveRect.top &&
+            cardRect.left + cardRect.width / 2 >= archiveRect.left &&
+            cardRect.bottom - cardRect.height / 2 <= archiveRect.bottom &&
+            cardRect.right - cardRect.width / 2 <= archiveRect.right
         ) {
             archiveCard(currentCard);
         }
 
         currentCard.classList.remove('dragging');
         currentCard.style.transform = 'none';
-        archiveArea.style.display = 'none'; // Hide the archive area when dragging ends
+        archiveArea.style.display = 'none'; 
         archiveArea.classList.remove('dragover');
         currentCard = null;
     }
 
-    // Detect if the device is touch-capable
+   
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
     if (isTouchDevice) {
@@ -270,6 +269,7 @@
         initSortable();
     }
 });
+
 
 
     </script>
